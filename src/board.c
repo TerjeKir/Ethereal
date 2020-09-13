@@ -303,16 +303,12 @@ int boardDrawnByRepetition(Board *board, int height) {
     int reps = 0;
 
     // Look through hash histories for our moves
-    for (int i = board->numMoves - 2; i >= 0; i -= 2) {
-
-        // No draw can occur before a zeroing move
-        if (i < board->numMoves - board->halfMoveCounter)
-            break;
+    for (int i = 2; i <= board->halfMoveCounter; i += 2) {
 
         // Check for matching hash with a two fold after the root,
         // or a three fold which occurs in part before the root move
-        if (    board->history[i] == board->hash
-            && (i > board->numMoves - height || ++reps == 2))
+        if (    board->history[board->numMoves - i] == board->hash
+            && (i < height || ++reps == 2))
             return 1;
     }
 
