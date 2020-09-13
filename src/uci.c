@@ -440,16 +440,10 @@ int strContains(char *str, char *key) {
 
 int getInput(char *str) {
 
-    char *ptr;
-
     if (fgets(str, 8192, stdin) == NULL)
         return 0;
 
-    ptr = strchr(str, '\n');
-    if (ptr != NULL) *ptr = '\0';
-
-    ptr = strchr(str, '\r');
-    if (ptr != NULL) *ptr = '\0';
+    str[strcspn(str, "\r\n")] = '\0';
 
     return 1;
 }
