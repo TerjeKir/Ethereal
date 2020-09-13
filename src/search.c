@@ -551,9 +551,11 @@ int search(Thread *thread, PVariation *pv, int alpha, int beta, int depth, int h
                 alpha = value;
 
                 // Copy our child's PV and prepend this move to it
-                pv->length = 1 + lpv.length;
-                pv->line[0] = move;
-                memcpy(pv->line + 1, lpv.line, sizeof(uint16_t) * lpv.length);
+                if (PvNode) {
+                    pv->length = 1 + lpv.length;
+                    pv->line[0] = move;
+                    memcpy(pv->line + 1, lpv.line, sizeof(uint16_t) * lpv.length);
+                }
 
                 // Search failed high
                 if (alpha >= beta) break;
