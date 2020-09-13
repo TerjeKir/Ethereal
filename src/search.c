@@ -527,7 +527,7 @@ int search(Thread *thread, PVariation *pv, int alpha, int beta, int depth, int h
         // but without a depth reduction R. First, if the LMR search happened, and failed
         // high, secondly, if we did not try an LMR search, and this is not the first move
         // we have tried in a PvNode, we will research with the normally reduced depth
-        if ((R != 1 && value > alpha) || (R == 1 && !(PvNode && played == 1)))
+        if (R != 1 ? value > alpha : !(PvNode && played == 1))
             value = -search(thread, &lpv, -alpha-1, -alpha, newDepth-1, height+1);
 
         // Step 16C. Finally, if we are in a PvNode and a move beat alpha while being
