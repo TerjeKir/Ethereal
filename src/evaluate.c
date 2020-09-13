@@ -468,13 +468,13 @@ int evaluatePieces(EvalInfo *ei, Board *board) {
 
     int eval;
 
-    eval  =   evaluatePawns(ei, board, WHITE)   - evaluatePawns(ei, board, BLACK);
+    eval  =   evaluatePawns(ei, board, WHITE) -   evaluatePawns(ei, board, BLACK);
     eval += evaluateKnights(ei, board, WHITE) - evaluateKnights(ei, board, BLACK);
     eval += evaluateBishops(ei, board, WHITE) - evaluateBishops(ei, board, BLACK);
-    eval +=   evaluateRooks(ei, board, WHITE)   - evaluateRooks(ei, board, BLACK);
-    eval +=  evaluateQueens(ei, board, WHITE)  - evaluateQueens(ei, board, BLACK);
-    eval +=   evaluateKings(ei, board, WHITE)   - evaluateKings(ei, board, BLACK);
-    eval +=  evaluatePassed(ei, board, WHITE)  - evaluatePassed(ei, board, BLACK);
+    eval +=   evaluateRooks(ei, board, WHITE) -   evaluateRooks(ei, board, BLACK);
+    eval +=  evaluateQueens(ei, board, WHITE) -  evaluateQueens(ei, board, BLACK);
+    eval +=   evaluateKings(ei, board, WHITE) -   evaluateKings(ei, board, BLACK);
+    eval +=  evaluatePassed(ei, board, WHITE) -  evaluatePassed(ei, board, BLACK);
     eval += evaluateThreats(ei, board, WHITE) - evaluateThreats(ei, board, BLACK);
     eval +=   evaluateSpace(ei, board, WHITE) -   evaluateSpace(ei, board, BLACK);
 
