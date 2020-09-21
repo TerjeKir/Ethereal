@@ -462,6 +462,18 @@ int search(Thread *thread, PVariation *pv, int alpha, int beta, int depth) {
         if (isQuiet) quietsTried[quietsPlayed++] = move;
         else capturesTried[capturesPlayed++] = move;
 
+        if (   alpha > 0
+            && board->numMoves >= 2
+            && board->halfMoveCounter >= 3
+            // The current move has been made and is -1, 2 back is then -3
+            && MoveFrom(move) == MoveTo(thread->moveStack[thread->height-3])
+            && MoveTo(move) == MoveFrom(thread->moveStack[thread->height-3])) {
+
+            value = 0;
+            lpv.length = 0;
+            goto skip_search;
+        }
+
         // The UCI spec allows us to output information about the current move
         // that we are going to search. We only do this from the main thread,
         // and we wait a few seconds in order to avoid floiding the output
@@ -536,7 +548,7 @@ int search(Thread *thread, PVariation *pv, int alpha, int beta, int depth) {
         // normal window. This happens only for the first move in a PvNode
         if (PvNode && (played == 1 || value > alpha))
             value = -search(thread, &lpv, -beta, -alpha, newDepth-1);
-
+skip_search:
         // Revert the board state
         revert(thread, board, move);
 
